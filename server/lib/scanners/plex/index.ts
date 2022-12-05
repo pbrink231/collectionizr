@@ -229,6 +229,8 @@ class PlexScanner
       mediaAddedAt: new Date(plexitem.addedAt * 1000),
       ratingKey: plexitem.ratingKey,
       title: plexitem.title,
+      imdbId: mediaIds.imdbId,
+      tvdbId: mediaIds.tvdbId,
     });
   }
 

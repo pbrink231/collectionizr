@@ -99,6 +99,7 @@ class RadarrScanner
         externalServiceSlug: radarrMovie.titleSlug,
         title: radarrMovie.title,
         processing: !radarrMovie.hasFile,
+        imdbId: radarrMovie.imdbId,
       });
     } catch (e) {
       this.log('Failed to process Radarr media', 'error', {

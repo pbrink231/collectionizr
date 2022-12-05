@@ -39,6 +39,8 @@ interface ProcessOptions {
   externalServiceSlug?: string;
   title?: string;
   processing?: boolean;
+  imdbId?: string;
+  tvdbId?: number;
 }
 
 export interface ProcessableSeason {
@@ -100,6 +102,8 @@ class BaseScanner<T> {
       externalServiceSlug,
       processing = false,
       title = 'Unknown Title',
+      imdbId,
+      tvdbId,
     }: ProcessOptions = {}
   ): Promise<void> {
     const mediaRepository = getRepository(Media);
@@ -161,6 +165,16 @@ class BaseScanner<T> {
           changedExisting = true;
         }
 
+        if (imdbId !== undefined && existing['imdbId'] !== imdbId) {
+          existing['imdbId'] = imdbId;
+          changedExisting = true;
+        }
+
+        if (tvdbId !== undefined && existing['tvdbId'] !== tvdbId) {
+          existing['tvdbId'] = tvdbId;
+          changedExisting = true;
+        }
+
         if (changedExisting) {
           await mediaRepository.save(existing);
           this.log(
@@ -173,6 +187,8 @@ class BaseScanner<T> {
       } else {
         const newMedia = new Media();
         newMedia.tmdbId = tmdbId;
+        newMedia.imdbId = imdbId;
+        newMedia.tvdbId = tvdbId;
 
         newMedia.status =
           !is4k && !processing
@@ -231,6 +247,7 @@ class BaseScanner<T> {
       externalServiceSlug,
       is4k = false,
       title = 'Unknown Title',
+      imdbId,
     }: ProcessOptions = {}
   ): Promise<void> {
     const mediaRepository = getRepository(Media);
@@ -397,6 +414,10 @@ class BaseScanner<T> {
             externalServiceSlug;
         }
 
+        if (imdbId !== undefined && media['imdbId'] !== imdbId) {
+          media['imdbId'] = imdbId;
+        }
+
         // If the show is already available, and there are no new seasons, dont adjust
         // the status
         const shouldStayAvailable =
@@ -447,6 +468,7 @@ class BaseScanner<T> {
           seasons: newSeasons,
           tmdbId,
           tvdbId,
+          imdbId,
           mediaAddedAt,
           serviceId: !is4k ? serviceId : undefined,
           serviceId4k: is4k ? serviceId : undefined,
