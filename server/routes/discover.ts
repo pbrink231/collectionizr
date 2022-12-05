@@ -747,7 +747,7 @@ discoverRoutes.get<{ page?: number }, WatchlistResponse>(
       results: watchlist.items.map((item) => ({
         ratingKey: item.ratingKey,
         title: item.title,
-        mediaType: item.type === 'show' ? 'tv' : 'movie',
+        mediaType: (item.type === 'show' ? 'tv' : 'movie') as MediaType,
         tmdbId: item.tmdbId,
       })),
     });

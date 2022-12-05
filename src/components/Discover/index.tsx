@@ -79,7 +79,7 @@ const Discover = () => {
                   id={item.id}
                   tmdbId={item.tmdbId}
                   tvdbId={item.tvdbId}
-                  type={item.mediaType}
+                  mediaType={item.mediaType}
                 />
               ))}
             />
@@ -144,7 +144,7 @@ const Discover = () => {
                   id={item.tmdbId}
                   key={`watchlist-slider-item-${item.ratingKey}`}
                   tmdbId={item.tmdbId}
-                  type={item.mediaType}
+                  mediaType={item.mediaType}
                 />
               ))}
             />

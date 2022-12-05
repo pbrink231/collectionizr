@@ -44,7 +44,7 @@ const ListView = ({
               <TmdbTitleCard
                 id={title.tmdbId}
                 tmdbId={title.tmdbId}
-                type={title.mediaType}
+                mediaType={title.mediaType}
                 canExpand
               />
             </li>

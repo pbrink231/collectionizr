@@ -5,7 +5,7 @@ import AdvancedRequester from '@app/components/RequestModal/AdvancedRequester';
 import QuotaDisplay from '@app/components/RequestModal/QuotaDisplay';
 import { useUser } from '@app/hooks/useUser';
 import globalMessages from '@app/i18n/globalMessages';
-import { MediaStatus } from '@server/constants/media';
+import { MediaStatus, MediaType } from '@server/constants/media';
 import type { MediaRequest } from '@server/entity/MediaRequest';
 import type { QuotaResponse } from '@server/interfaces/api/userInterfaces';
 import { Permission } from '@server/lib/permissions';
@@ -90,7 +90,7 @@ const MovieRequestModal = ({
       }
       const response = await axios.post<MediaRequest>('/api/v1/request', {
         mediaId: data?.id,
-        mediaType: 'movie',
+        mediaType: MediaType.MOVIE,
         is4k,
         ...overrideParams,
       });

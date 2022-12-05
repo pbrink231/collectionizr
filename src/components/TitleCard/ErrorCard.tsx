@@ -1,15 +1,15 @@
 import Button from '@app/components/Common/Button';
 import globalMessages from '@app/i18n/globalMessages';
 import { CheckIcon, TrashIcon } from '@heroicons/react/solid';
+import { MediaType } from '@server/constants/media';
 import axios from 'axios';
 import { defineMessages, useIntl } from 'react-intl';
 import { mutate } from 'swr';
-
 interface ErrorCardProps {
   id: number;
   tmdbId: number;
   tvdbId?: number;
-  type: 'movie' | 'tv';
+  mediaType: MediaType;
   canExpand?: boolean;
 }
 
@@ -20,7 +20,13 @@ const messages = defineMessages({
   cleardata: 'Clear Data',
 });
 
-const Error = ({ id, tmdbId, tvdbId, type, canExpand }: ErrorCardProps) => {
+const Error = ({
+  id,
+  tmdbId,
+  tvdbId,
+  mediaType,
+  canExpand,
+}: ErrorCardProps) => {
   const intl = useIntl();
 
   const deleteMedia = async () => {
@@ -44,11 +50,11 @@ const Error = ({ id, tmdbId, tvdbId, type, canExpand }: ErrorCardProps) => {
           <div className="absolute left-0 right-0 flex items-center justify-between p-2">
             <div
               className={`pointer-events-none z-40 rounded-full shadow ${
-                type === 'movie' ? 'bg-blue-500' : 'bg-purple-600'
+                mediaType === MediaType.MOVIE ? 'bg-blue-500' : 'bg-purple-600'
               }`}
             >
               <div className="flex h-4 items-center px-2 py-2 text-center text-xs font-medium uppercase tracking-wider text-white sm:h-5">
-                {type === 'movie'
+                {mediaType === MediaType.MOVIE
                   ? intl.formatMessage(globalMessages.movie)
                   : intl.formatMessage(globalMessages.tvshow)}
               </div>
@@ -75,7 +81,7 @@ const Error = ({ id, tmdbId, tvdbId, type, canExpand }: ErrorCardProps) => {
               >
                 {intl.formatMessage(messages.mediaerror, {
                   mediaType: intl.formatMessage(
-                    type === 'movie'
+                    mediaType === MediaType.MOVIE
                       ? globalMessages.movie
                       : globalMessages.tvshow
                   ),

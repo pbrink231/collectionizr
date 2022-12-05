@@ -42,7 +42,7 @@ import {
 } from '@heroicons/react/solid';
 import type { RTRating } from '@server/api/rottentomatoes';
 import { IssueStatus } from '@server/constants/issue';
-import { MediaStatus } from '@server/constants/media';
+import { MediaStatus, MediaType } from '@server/constants/media';
 import type { MovieDetails as MovieDetailsType } from '@server/models/Movie';
 import { hasFlag } from 'country-flag-icons';
 import 'country-flag-icons/3x2/flags.css';
@@ -274,7 +274,7 @@ const MovieDetails = ({ movie }: MovieDetailsProps) => {
       <IssueModal
         onCancel={() => setShowIssueModal(false)}
         show={showIssueModal}
-        mediaType="movie"
+        mediaType={MediaType.MOVIE}
         tmdbId={data.id}
       />
 
@@ -287,7 +287,7 @@ const MovieDetails = ({ movie }: MovieDetailsProps) => {
 
       <ManageSlideOver
         data={data}
-        mediaType="movie"
+        mediaType={MediaType.MOVIE}
         onClose={() => {
           setShowManager(false);
           router.push({
