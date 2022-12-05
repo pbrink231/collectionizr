@@ -54,6 +54,7 @@ const globalMessages = defineMessages({
   noresults: 'No results.',
   open: 'Open',
   resolved: 'Resolved',
+  errorloadingdata: 'Error loading data',
 });
 
 export default globalMessages;

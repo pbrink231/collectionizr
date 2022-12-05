@@ -25,6 +25,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import Issue from './Issue';
+import Medialist from './Medialist';
+import MedialistItem from './MedialistItem';
 import { MediaRequest } from './MediaRequest';
 import SeasonRequest from './SeasonRequest';
 import { UserPushSubscription } from './UserPushSubscription';
@@ -115,6 +117,16 @@ export class User {
 
   @OneToMany(() => Issue, (issue) => issue.createdBy, { cascade: true })
   public createdIssues: Issue[];
+
+  @OneToMany(() => Medialist, (medialist) => medialist.createdBy, {
+    cascade: true,
+  })
+  public createdMedialists: Medialist[];
+
+  @OneToMany(() => MedialistItem, (medialistItem) => medialistItem.addedBy, {
+    cascade: true,
+  })
+  public addedMedialistItems: MedialistItem[];
 
   @CreateDateColumn()
   public createdAt: Date;

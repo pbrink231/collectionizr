@@ -23,6 +23,7 @@ import discoverRoutes, { createTmdbWithRegionLanguage } from './discover';
 import issueRoutes from './issue';
 import issueCommentRoutes from './issueComment';
 import mediaRoutes from './media';
+import medialistRoutes from './medialist';
 import movieRoutes from './movie';
 import personRoutes from './person';
 import requestRoutes from './request';
@@ -114,6 +115,7 @@ router.use('/collection', isAuthenticated(), collectionRoutes);
 router.use('/service', isAuthenticated(), serviceRoutes);
 router.use('/issue', isAuthenticated(), issueRoutes);
 router.use('/issueComment', isAuthenticated(), issueCommentRoutes);
+router.use('/medialist', isAuthenticated(), medialistRoutes);
 router.use('/auth', authRoutes);
 
 router.get('/regions', isAuthenticated(), async (req, res, next) => {

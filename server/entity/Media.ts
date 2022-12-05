@@ -2,6 +2,7 @@ import RadarrAPI from '@server/api/servarr/radarr';
 import SonarrAPI from '@server/api/servarr/sonarr';
 import { MediaStatus, MediaType } from '@server/constants/media';
 import { getRepository } from '@server/datasource';
+import MedialistItem from '@server/entity/MedialistItem';
 import type { DownloadingItem } from '@server/lib/downloadtracker';
 import downloadTracker from '@server/lib/downloadtracker';
 import { getSettings } from '@server/lib/settings';
@@ -101,6 +102,11 @@ class Media {
 
   @OneToMany(() => Issue, (issue) => issue.media, { cascade: true })
   public issues: Issue[];
+
+  @OneToMany(() => MedialistItem, (item) => item.media, {
+    cascade: true,
+  })
+  public medialistItems: MedialistItem[];
 
   @CreateDateColumn()
   public createdAt: Date;

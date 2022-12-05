@@ -13,6 +13,7 @@ import Tooltip from '@app/components/Common/Tooltip';
 import ExternalLinkBlock from '@app/components/ExternalLinkBlock';
 import IssueModal from '@app/components/IssueModal';
 import ManageSlideOver from '@app/components/ManageSlideOver';
+import MedialistItemModal from '@app/components/MedialistItemModal';
 import MediaSlider from '@app/components/MediaSlider';
 import PersonCard from '@app/components/PersonCard';
 import RequestButton from '@app/components/RequestButton';
@@ -33,6 +34,7 @@ import {
   FilmIcon,
   PlayIcon,
   TicketIcon,
+  ViewListIcon,
 } from '@heroicons/react/outline';
 import {
   ChevronDoubleDownIcon,
@@ -80,6 +82,7 @@ const messages = defineMessages({
   digitalrelease: 'Digital Release',
   physicalrelease: 'Physical Release',
   reportissue: 'Report an Issue',
+  addmedialistitem: 'Add to Medialist',
   managemovie: 'Manage Movie',
   rtcriticsscore: 'Rotten Tomatoes Tomatometer',
   rtaudiencescore: 'Rotten Tomatoes Audience Score',
@@ -102,6 +105,7 @@ const MovieDetails = ({ movie }: MovieDetailsProps) => {
   const minStudios = 3;
   const [showMoreStudios, setShowMoreStudios] = useState(false);
   const [showIssueModal, setShowIssueModal] = useState(false);
+  const [showMedialistItemModal, setShowMedialistItemModal] = useState(false);
 
   const {
     data,
@@ -273,6 +277,14 @@ const MovieDetails = ({ movie }: MovieDetailsProps) => {
         mediaType="movie"
         tmdbId={data.id}
       />
+
+      <MedialistItemModal
+        onCancel={() => setShowMedialistItemModal(false)}
+        show={showMedialistItemModal}
+        mediaType={MediaType.MOVIE}
+        tmdbId={data.id}
+      />
+
       <ManageSlideOver
         data={data}
         mediaType="movie"
@@ -389,6 +401,23 @@ const MovieDetails = ({ movie }: MovieDetailsProps) => {
                 </Button>
               </Tooltip>
             )}
+          {hasPermission(
+            [Permission.CREATE_MEDIALIST, Permission.MANAGE_MEDIALIST],
+            {
+              type: 'or',
+            }
+          ) && (
+            <Tooltip content={intl.formatMessage(messages.addmedialistitem)}>
+              <Button
+                buttonType="default"
+                onClick={() => setShowMedialistItemModal(true)}
+                className="ml-2 first:ml-0"
+              >
+                <ViewListIcon />
+              </Button>
+            </Tooltip>
+          )}
+
           {hasPermission(Permission.MANAGE_REQUESTS) && data.mediaInfo && (
             <Tooltip content={intl.formatMessage(messages.managemovie)}>
               <Button

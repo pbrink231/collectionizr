@@ -8,6 +8,7 @@ import {
   ExclamationIcon,
   SparklesIcon,
   UsersIcon,
+  ViewListIcon,
   XIcon,
 } from '@heroicons/react/outline';
 import Link from 'next/link';
@@ -19,6 +20,7 @@ const messages = defineMessages({
   dashboard: 'Discover',
   requests: 'Requests',
   issues: 'Issues',
+  medialists: 'Lists',
   users: 'Users',
   settings: 'Settings',
 });
@@ -65,6 +67,12 @@ const SidebarLinks: SidebarLinkProps[] = [
       Permission.VIEW_ISSUES,
     ],
     permissionType: 'or',
+  },
+  {
+    href: '/medialists',
+    messagesKey: 'medialists',
+    svgIcon: <ViewListIcon className="mr-3 h-6 w-6" />,
+    activeRegExp: /^\/medialists/,
   },
   {
     href: '/users',
